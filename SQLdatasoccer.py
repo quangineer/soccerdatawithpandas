@@ -39,4 +39,17 @@ data_Age = data["Age"]
 #Using SQL to count: First select only column Age (of table data) where Age >= 30, then start counting
 #For this SQL count, have to decide which column , which condition first to narrow the result, then using index of 
 #data file to start counting.
-print ((data[data.Age >= 30])["Age"].count())
+# print ((data[data.Age >= 30])["Age"].count())
+
+########################
+#which player under 30 get paid the most?
+#Remember: to strip an object, we use .item()
+#SELECT Name
+#From data
+#Where Age < 30
+#Order by Salary DESC,
+#Limit 1 
+print (data[data.Age < 30].sort_values('Value',ascending = False)["Name"][0:1].item())
+
+#########################
+#which player has the most potential but get paid the least?

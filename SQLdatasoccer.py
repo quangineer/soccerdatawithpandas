@@ -49,7 +49,19 @@ data_Age = data["Age"]
 #Where Age < 30
 #Order by Salary DESC,
 #Limit 1 
-print (data[data.Age < 30].sort_values('Value',ascending = False)["Name"][0:1].item())
+# print (data[data.Age < 30].sort_values('Value',ascending = False)["Name"][0:1].item())
 
 #########################
 #which player has the most potential but get paid the least?
+#SELECT Name
+#From data
+#Order by Potential DESC, Wage
+#Limit 1
+
+
+# print (data.sort_values((["Wage"],descending=False))(["Potential"], ascending=False))
+# sorted = data.sort_values(by=['Potential', 'Wage'], ascending=[False, True])[0:1]["ID"].item()
+# print(sorted)
+
+sorted2 = data.sort_values(by=['Potential', 'Wage'], ascending=[False, True])[0:2]["Name"]
+print(sorted2)

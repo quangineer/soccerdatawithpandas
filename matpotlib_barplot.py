@@ -1,6 +1,6 @@
 from matplotlib.ticker import FuncFormatter 
-import matplotlib.pyplot as pyplot
-import numpy as numpy
+import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 
 file = "data.csv"
@@ -8,6 +8,7 @@ data = pd.read_csv(file)
 
 club = set(data.Club)
 unique_club = []
+list_total_value_club = []
 for i in club:
     if str(i) != "nan":
         unique_club.append(i)
@@ -22,45 +23,43 @@ for i in unique_club:
     unique_club_data_values_list = unique_club_data_values.tolist()
     Club_total_value = 0
     for value in unique_club_data_values_list:
-        value = float(value.strip("€MK"))
+        if value.endswith("K"):
+            value = float(value.strip("€K"))*0.001
+        elif value.endswith("M"):
+            value = float(value.strip("€M"))
+        else:
+            value = 0 
         Club_total_value += value
-        
-    print (Club_total_value)
-    
-# # SELECT Value FROM data WHERE Club = "Juventus"
-# Juventus_values = Juventus_data["Value"]
-# # Convert Value to array
-# Juventus_values_list = Juventus_values.tolist()
-    # print (unique_club_data_values_list)
-# # Calculate total value (strip characters then convert to float then add to total)
-# JuventusTotalValue = 0
-# for value in Juventus_values_list:
-#     value = float(value.strip("€MK"))
-#     JuventusTotalValue += value
-# print (JuventusTotalValue)
+    Club_total_value = round(Club_total_value, 2)
+    list_total_value_club.append([i, Club_total_value])
 
-     
-# formatter = FuncFormatter(millions)
+S = sorted(list_total_value_club, key=lambda x: x[1])
+# print (S)
 
-# x = np.arange(10)
-
-# from matplotlib.ticker import FuncFormatter
-# import matplotlib.pyplot as plt
-# import numpy as np
-
-# x = np.arange(4)
-# money = [1.5e5, 2.5e6, 5.5e6, 2.0e7]
+A = S[-20:]
+# print (A)
+Club_Name = []
+Club_Value = []
+for i in A:
+    Club_Name.append(i[0])
+    Club_Value.append(i[1])
+# print (Club_Name)
+# print (Club_Value)
 
 
-# def millions(x, pos):
-#     'The two args are the value and tick position'
-#     return '$%1.1fM' % (x * 1e-6)
+x = np.arange(20)
+money = Club_Value
 
 
-# formatter = FuncFormatter(millions)
+def millions(x, pos):
+    'The two args are the value and tick position'
+    return '$%1.1fM' % (x * 1e-6)
 
-# fig, ax = plt.subplots()
-# ax.yaxis.set_major_formatter(formatter)
-# plt.bar(x, money)
-# plt.xticks(x, ('Bill', 'Fred', 'Mary', 'Sue'))
-# plt.show()
+
+formatter = FuncFormatter(millions)
+
+fig, ax = plt.subplots()
+ax.yaxis.set_major_formatter(formatter)
+plt.bar(x, money)
+plt.xticks(x, (Club_Name))
+plt.show()

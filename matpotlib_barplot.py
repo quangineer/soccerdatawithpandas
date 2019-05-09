@@ -36,7 +36,7 @@ for i in unique_club:
 S = sorted(list_total_value_club, key=lambda x: x[1])
 # print (S)
 
-A = S[-20:]
+A = S[-5:]
 # print (A)
 Club_Name = []
 Club_Value = []
@@ -47,7 +47,7 @@ for i in A:
 # print (Club_Value)
 
 
-x = np.arange(20)
+x = np.arange(5)
 money = Club_Value
 
 

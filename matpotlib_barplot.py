@@ -12,7 +12,34 @@ for i in club:
     if str(i) != "nan":
         unique_club.append(i)
 
-print (unique_club)
+
+
+# # SELECT * FROM data WHERE Club = "Juventus"
+# Juventus_data = data[data.Club == "Juventus"]
+for i in unique_club:
+    unique_club_data = data[data.Club == i]
+    unique_club_data_values = unique_club_data["Value"]
+    unique_club_data_values_list = unique_club_data_values.tolist()
+    Club_total_value = 0
+    for value in unique_club_data_values_list:
+        value = float(value.strip("€MK"))
+        Club_total_value += value
+        
+    print (Club_total_value)
+    
+# # SELECT Value FROM data WHERE Club = "Juventus"
+# Juventus_values = Juventus_data["Value"]
+# # Convert Value to array
+# Juventus_values_list = Juventus_values.tolist()
+    # print (unique_club_data_values_list)
+# # Calculate total value (strip characters then convert to float then add to total)
+# JuventusTotalValue = 0
+# for value in Juventus_values_list:
+#     value = float(value.strip("€MK"))
+#     JuventusTotalValue += value
+# print (JuventusTotalValue)
+
+     
 # formatter = FuncFormatter(millions)
 
 # x = np.arange(10)
